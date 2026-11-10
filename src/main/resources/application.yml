@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: weavroa-image-standalone
+
+server:
+  port: 8080
+
+# ============ LLM 模型注册 ============
+weavroa:
+  llm:
+    model:
+      register:
+        TEXT:
+          - name: qwen-plus
+            provider: bailian
+            base-url: https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+            api-type: openai
+            api-key: ${DASHSCOPE_API_KEY:}
+            supports-streaming: true
+            supports-tool-calls: true
+            max-context-length: 32768
+            max-output-length: 8192
+        IMAGE_GEN:
+          - name: wanx-v1
+            provider: bailian
+            base-url: https://dashscope.aliyuncs.com/api/v1/
+            api-type: openai
+            api-key: ${DASHSCOPE_API_KEY:}
+            specialization: "支持精准的中英双语文字编辑、调色、细节增强、风格迁移等操作"
+        IMAGE_GEN_WAN_RPO:
+          - name: wan2.7-image-pro
+            provider: bailian
+            base-url: /api/v1/services/aigc/multimodal-generation/generation
+            api-type: openai
+            api-key: ${DASHSCOPE_API_KEY:}
+            specialization: "图片生成"
+            supports-streaming: false
+        IMAGE_TRANSLATE:
+          - name: qwen-mt-image
+            provider: bailian
+            base-url: /api/v1/services/aigc/image2image/image-synthesis
+            api-type: openai
+            api-key: ${DASHSCOPE_API_KEY:}
+            specialization: "图片翻译"
+            supports-streaming: false
